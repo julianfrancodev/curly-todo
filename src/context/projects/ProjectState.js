@@ -4,11 +4,14 @@ import uuid from 'uuid';
 
 import projectContext from './ProjectContext';
 import projectReducer from './ProjectReducer';
+
 import {
     FORM_PROJECT,
     GET_PROJECTS,
     ADD_PROJECT,
-    VALIDATE_FORM
+    VALIDATE_FORM,
+    CURRENT_PROJECT,
+    REMOVE_PROJECT
 } from '../../types';
 
 
@@ -26,7 +29,8 @@ const ProjectState = props => {
 
         projects: [],
         formulario: false,
-        errorform: false
+        errorform: false,
+        project: null
     }
 
     // Dispatch para ejecutar las acciones
@@ -69,11 +73,33 @@ const ProjectState = props => {
 
     // Validar formulario por errores 
 
-    const showError =()=>{
+    const showError = () => {
         dispatch({
             type: VALIDATE_FORM
         })
     }
+
+    // Selecciona el proyecto que el usuario dio click
+
+    const currentProject = (project) => {
+        dispatch({
+            type: CURRENT_PROJECT,
+            payload: project
+        })
+    }
+
+    // Eliminar un proyecto
+
+    const removeProject = (projectId) => {
+
+        dispatch({
+            type: REMOVE_PROJECT,
+            payload: projectId
+        })
+    }
+
+
+
 
     return (
         <projectContext.Provider
@@ -81,10 +107,13 @@ const ProjectState = props => {
                 projects: state.projects,
                 formulario: state.formulario,
                 errorform: state.errorform,
+                project: state.project,
                 showForm,
                 getProjects,
                 addProject,
-                showError
+                showError,
+                currentProject,
+                removeProject
             }}
         >
             {props.children}

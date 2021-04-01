@@ -1,8 +1,10 @@
-import { 
-    ADD_PROJECT, 
-    FORM_PROJECT, 
-    GET_PROJECTS, 
-    VALIDATE_FORM 
+import {
+    ADD_PROJECT,
+    FORM_PROJECT,
+    GET_PROJECTS,
+    VALIDATE_FORM,
+    CURRENT_PROJECT,
+    REMOVE_PROJECT
 } from '../../types';
 
 export default (state, action) => {
@@ -27,11 +29,26 @@ export default (state, action) => {
                 errorform: false
             }
 
-        case VALIDATE_FORM: 
+        case VALIDATE_FORM:
 
             return {
-                ...state, 
+                ...state,
                 errorform: true
+            }
+
+        case CURRENT_PROJECT:
+            return {
+                ...state,
+                project: state.projects
+                    .filter(project => project.id === action.payload.id)
+            }
+
+        case REMOVE_PROJECT:
+            return {
+                ...state,
+                projects: state.projects
+                    .filter(project => project.id !== action.payload),
+                project: null
             }
         default:
             return state;

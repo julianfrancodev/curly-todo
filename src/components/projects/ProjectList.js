@@ -19,7 +19,7 @@ const ProjectList = () => {
     console.log(projects);
 
     // Ver si proyectos tiene contenido
-    if (projects.length === 0) return null;
+    if (projects.length === 0) return <p>No hay proyectos</p>;
 
    
 
