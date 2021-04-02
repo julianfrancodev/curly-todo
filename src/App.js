@@ -5,17 +5,20 @@ import Login from './components/auth/Login';
 import Projects from './components/projects/Projects';
 
 import ProjectState from "./context/projects/ProjectState";
+import TodoState from "./context/todos/TodoState";
 
 function App() {
   return (
     <ProjectState>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/create-account" component={CreateAccount} />
-          <Route exact path="/projects" component={Projects} />
-        </Switch>
-      </Router>
+      <TodoState>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/create-account" component={CreateAccount} />
+            <Route exact path="/projects" component={Projects} />
+          </Switch>
+        </Router>
+      </TodoState>
     </ProjectState>
   );
 }

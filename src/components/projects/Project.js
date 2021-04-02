@@ -1,26 +1,36 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import projectContext from '../../context/projects/ProjectContext';
+import todoContext from '../../context/todos/TodoContext';
 
-const Project = ({project}) => {
+const Project = ({ project }) => {
 
     // Obtener el state de los proyectos
     const projectsContext = useContext(projectContext);
+    const todosContext = useContext(todoContext);
 
-    const {currentProject} = projectsContext;
+    const { currentProject } = projectsContext;
+
+    const { getTodos } = todosContext;
 
 
+    // Funcion para agregar el proyecto actual
 
-    return ( 
+    const selectProject = (project) => {
+        currentProject(project);
+        getTodos(project.id); // filtar tareas cuando se de click
+    }
+
+    return (
         <li>
             <button
-            type="button"
-            className="btn btn-black"
-            onClick={()=>currentProject(project)}
+                type="button"
+                className="btn btn-black"
+                onClick={() => selectProject(project)}
             >
                 {project.nameP}
             </button>
         </li>
-     );
+    );
 }
- 
+
 export default Project;

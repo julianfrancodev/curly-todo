@@ -1,10 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
+
+import projectContext from '../../context/projects/ProjectContext';
+import todoContext from '../../context/todos/TodoContext';
 
 
 const Todo = ({todo}) => {
+
+    const projectsContext = useContext(projectContext);
+    const todosContext = useContext(todoContext);
+
+    const { removeTodo, getTodos } = todosContext;
+    const { project } = projectsContext;
+
+    // Extraer el proyecto con array destructuring
+
+    const [currentProject] = project;
+
+    const deleteTodo = (id)=>{
+         removeTodo(id);
+         getTodos(currentProject.id);
+    }
+
+
     return ( 
         <li className="tarea sombra">
-            <p>{todo.name}</p>
+            <p>{todo.nameT}</p>
             <div className="estado">
                 {todo.state 
                 ?(<button
@@ -31,6 +51,7 @@ const Todo = ({todo}) => {
                 <button
                 type="button"
                 className="btn btn-secundario"
+                onClick={()=>deleteTodo(todo.id)}
                 >
                     Eliminar
                 </button>
