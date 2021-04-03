@@ -9,7 +9,9 @@ import {
     TODOS_PROJECT,
     ADD_TODO,
     VALIDATE_TODO,
-    REMOVE_TODO
+    REMOVE_TODO,
+    STATE_TODO,
+    CURRENT_TODO
 } from '../../types';
 
 const TodoState = (props) => {
@@ -25,7 +27,8 @@ const TodoState = (props) => {
             { id: 4, nameT: "Elegir Camino", state: false, projectId: 4 },
         ],
         todosproject: null,
-        errortodo: false
+        errortodo: false,
+        todoselected: null
 
     }
 
@@ -68,6 +71,25 @@ const TodoState = (props) => {
         })
     }
 
+    // Cambia el estado de cada tarea
+
+    const updateStateTodo = (todo) => {
+        dispatch({
+            type: STATE_TODO,
+            payload: todo
+        });
+    }
+
+    // Extraer una tarea para la edicion
+
+    const saveCurrentTodo = (todo) =>{
+        dispatch({
+            type: CURRENT_TODO,
+            payload: todo
+        })
+    }
+   
+
 
     return (
         <todoContext.Provider
@@ -78,7 +100,9 @@ const TodoState = (props) => {
                 getTodos,
                 addTodo,
                 validateTodo,
-                removeTodo
+                removeTodo,
+                updateStateTodo,
+                saveCurrentTodo
             }}
         >
             {props.children}

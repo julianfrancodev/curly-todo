@@ -9,3 +9,5 @@ export const TODOS_PROJECT = "TODOS_PROJECT";
 export const ADD_TODO = "ADD_TODO";
 export const VALIDATE_TODO = "VALIDATE_TODO";
 export const REMOVE_TODO = "REMOVE_TODO";
+export const STATE_TODO = "STATE_TODO";
+export const CURRENT_TODO = "CURRENT_TODO";
