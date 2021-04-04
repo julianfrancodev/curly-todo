@@ -15,6 +15,9 @@ const ProjectList = () => {
     // Obtener proyectos cuando cargar el componente
     useEffect(() => {
         getProjects();
+
+        //eslint-disable-next-line
+
     }, [])
 
     console.log(projects);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import projectContext from "../../context/projects/ProjectContext";
 import todoContext from "../../context/todos/TodoContext";
 
@@ -8,11 +8,27 @@ const FormTodo = () => {
     const todosContext = useContext(todoContext);
 
     const { project } = projectsContext;
-    const { errortodo, addTodo, validateTodo, getTodos } = todosContext;
+    const { errortodo, todoselected, addTodo, validateTodo, 
+        getTodos, updateTodo, cleanTodo } = todosContext;
+
+
 
     const [todo, setTodo] = useState({
         nameT: ''
     });
+
+
+    // Effect que detecta si hay uan tarea seleccionada
+
+    useEffect(() => {
+        if (todoselected !== null) {
+            setTodo(todoselected)
+        } else {
+            setTodo({
+                nameT: ''
+            })
+        }
+    }, [todoselected])
 
     // Leer los valores del formulario
 
@@ -36,11 +52,25 @@ const FormTodo = () => {
             return;
         }
 
-        // Agregamos nueva tarea al state de tareas
-        todo.projectId = project[0].id;
-        todo.state = false;
 
-        addTodo(todo);
+        // Revisar si es edicion o es una nueva tarea
+
+        if (todoselected === null) {
+            // Agregamos nueva tarea al state de tareas
+            todo.projectId = project[0].id;
+            todo.state = false;
+
+            addTodo(todo);
+        }else{
+            // Actualizar la tarea existente
+
+            updateTodo(todo);
+
+            // Eliminar la tarea seleccionada del state
+
+            cleanTodo();
+
+        }
 
         // Obtener las tareas de un proyecto
 
@@ -73,12 +103,12 @@ const FormTodo = () => {
                     <input
                         type='submit'
                         className='btn btn-primario btn-submit btn-block'
-                        value='Agregar Tarea'
+                        value={todoselected ? 'Actualizar Tarea' : 'Agregar Tarea'}
                     />
                 </div>
             </form>
 
-            {errortodo ?<p className="mensaje error">El nombre de la tarea es obligatorio</p> : null}
+            {errortodo ? <p className="mensaje error">El nombre de la tarea es obligatorio</p> : null}
         </div>
     );
 }

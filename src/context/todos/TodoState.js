@@ -11,7 +11,9 @@ import {
     VALIDATE_TODO,
     REMOVE_TODO,
     STATE_TODO,
-    CURRENT_TODO
+    CURRENT_TODO,
+    UPDATE_TODO,
+    CLEAN_TODO
 } from '../../types';
 
 const TodoState = (props) => {
@@ -49,6 +51,9 @@ const TodoState = (props) => {
     // Agregar tarea
 
     const addTodo = (todo) => {
+
+        todo.id = uuid.v4();
+
         dispatch({
             type: ADD_TODO,
             payload: todo
@@ -88,6 +93,23 @@ const TodoState = (props) => {
             payload: todo
         })
     }
+
+    // Editar una tarea
+
+    const updateTodo = todo =>{
+        dispatch({
+            type: UPDATE_TODO,
+            payload: todo
+        })
+    }
+
+    // Eliminar todoselected
+
+    const cleanTodo =()=>{
+        dispatch({
+            type: CLEAN_TODO
+        })
+    }
    
 
 
@@ -97,12 +119,15 @@ const TodoState = (props) => {
                 todos: state.todos,
                 todosproject: state.todosproject,
                 errortodo: state.errortodo,
+                todoselected: state.todoselected,
                 getTodos,
                 addTodo,
                 validateTodo,
                 removeTodo,
                 updateStateTodo,
-                saveCurrentTodo
+                saveCurrentTodo,
+                updateTodo,
+                cleanTodo
             }}
         >
             {props.children}

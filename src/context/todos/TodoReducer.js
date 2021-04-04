@@ -5,7 +5,9 @@ import {
     VALIDATE_TODO,
     REMOVE_TODO,
     STATE_TODO,
-    CURRENT_TODO
+    CURRENT_TODO,
+    UPDATE_TODO,
+    CLEAN_TODO
 } from '../../types';
 
 
@@ -33,17 +35,24 @@ export default (state, action) => {
                 ...state,
                 todos: state.todos.filter(todo => todo.id !== action.payload)
             }
-
+        case UPDATE_TODO: 
         case STATE_TODO: 
             return {
                 ...state,
-                todos: state.todosproject.map(todo => todo.id === action.payload.id ? action.payload : todo)
+                todos: state.todos.map(todo => todo.id === action.payload.id ? action.payload : todo),
+                
             }
         case CURRENT_TODO: 
             return {
                 ...state,
-                
+                todoselected: action.payload
             }
+        case CLEAN_TODO:
+            return {
+                ...state,
+                todoselected: null
+            }
+  
         default:
             return state;
     }

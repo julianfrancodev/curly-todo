@@ -36,15 +36,8 @@ const TodosList = () => {
                         <li className="tarea"><p>No hay tareas</p></li>
                     )
                     :
-                    <TransitionGroup>
-                        {todosproject.map(todo =>
-                            <CSSTransition 
-                            timeout={200}
-                            classNames="tarea"
-                            key={todo.id}>
-                                <Todo todo={todo} />
-                            </CSSTransition>)}
-                    </TransitionGroup>
+
+                    todosproject.map(todo => <Todo key={todo.id} todo={todo} />)
                 }
             </ul>
 
