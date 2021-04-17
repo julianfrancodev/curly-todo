@@ -2,13 +2,15 @@ import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom';
 
 import alertContext from "../../context/alert/AlertContext";
-
+import authContext from "../../context/auth/AuthContext";
 const CreateAccount = () => {
 
     const alertsContext = useContext(alertContext);
-
+    const authsContext = useContext(authContext);
 
     const { alert, showAlert } = alertsContext;
+
+    const {registerUser} = authsContext;
 
 
 
@@ -38,9 +40,9 @@ const CreateAccount = () => {
 
 
         // Validar los campos vacios
-
-        if(nameU.trim() === "" || email.trim() || password.trim() ||
+        if(nameU.trim() === "" || email.trim() === "" || password.trim() === "" ||
             confirmar.trim() === ""){
+                console.log("entra qui")
                 showAlert("Todos los campos son obligatorios", 'alerta-error')
                 return;
             }
@@ -55,11 +57,17 @@ const CreateAccount = () => {
         // validar que los dos passwords sean iguales
 
         if( password !== confirmar){
-            showAlert("El password debe ser de minimo 6 caracteres", "alerta-error");
+            showAlert("El password debe ser igual", "alerta-error");
             return;
         }
 
         // Pasar al action
+
+        registerUser({
+            name: nameU, 
+            email,
+            password
+        });
     }
 
     return (
