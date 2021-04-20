@@ -1,13 +1,18 @@
 import React, { useState, useContext } from 'react';
 
 import alertContext from '../../context/alert/AlertContext';
+import authContext from '../../context/auth/AuthContext';
+
 import { Link } from 'react-router-dom';
 
 const Login = () => {
 
     const alertsContext = useContext(alertContext);
+    const authsContext = useContext(authContext);
 
     const { alert, showAlert } = alertsContext;
+
+    const {login} = authsContext;
 
 
     // State para iniciar sesion
@@ -39,6 +44,11 @@ const Login = () => {
         }
 
         // Pasar al action
+
+        login({
+            email,
+            password
+        })
     }
 
     return (

@@ -1,19 +1,33 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
 import alertContext from "../../context/alert/AlertContext";
 import authContext from "../../context/auth/AuthContext";
-const CreateAccount = () => {
+const CreateAccount = (props) => {
 
     const alertsContext = useContext(alertContext);
     const authsContext = useContext(authContext);
 
     const { alert, showAlert } = alertsContext;
 
-    const {registerUser} = authsContext;
+    const { registerUser, message, auth } = authsContext;
 
 
+    /* 
+    * En caso de que el usuario se haya autenticado o registrado
+    * o sea un registro duplicado
+    */
 
+    useEffect(() => {
+        if (auth) {
+            props.history.push('/projects');
+        }
+
+        if (message) {
+            showAlert(message.msg, 'alerta-error');
+
+        }
+    }, [message, auth, props.history])
 
     // State para iniciar sesion
 
@@ -40,23 +54,23 @@ const CreateAccount = () => {
 
 
         // Validar los campos vacios
-        if(nameU.trim() === "" || email.trim() === "" || password.trim() === "" ||
-            confirmar.trim() === ""){
-                console.log("entra qui")
-                showAlert("Todos los campos son obligatorios", 'alerta-error')
-                return;
-            }
+        if (nameU.trim() === "" || email.trim() === "" || password.trim() === "" ||
+            confirmar.trim() === "") {
+            console.log("entra qui")
+            showAlert("Todos los campos son obligatorios", 'alerta-error')
+            return;
+        }
         // validar que el password minimo se de 6 caracteres 
 
-            if(password.length < 6){
-                showAlert("El password debe ser de minimo 6 caracteres", "alerta-error");
-                return;
-            }
+        if (password.length < 6) {
+            showAlert("El password debe ser de minimo 6 caracteres", "alerta-error");
+            return;
+        }
 
 
         // validar que los dos passwords sean iguales
 
-        if( password !== confirmar){
+        if (password !== confirmar) {
             showAlert("El password debe ser igual", "alerta-error");
             return;
         }
@@ -64,7 +78,7 @@ const CreateAccount = () => {
         // Pasar al action
 
         registerUser({
-            name: nameU, 
+            name: nameU,
             email,
             password
         });

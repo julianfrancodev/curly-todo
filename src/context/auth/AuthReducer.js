@@ -1,4 +1,4 @@
-import { REGISTER_ERROR, REGISTER_SUCCESS } from "../../types";
+import { GET_USER, LOGIN_ERROR, REGISTER_ERROR, REGISTER_SUCCESS } from "../../types";
 
 
 
@@ -20,6 +20,19 @@ export default (state, action) => {
                 ...state,
                 token: null,
                 message: action.payload
+            }
+        case LOGIN_ERROR:
+            localStorage.removeItem("tokenU");
+            return {
+                ...state,
+                token: null,
+                message: action.payload
+            }
+
+        case GET_USER:
+            return {
+                ...state,
+                user: action.payload
             }
 
         default:
