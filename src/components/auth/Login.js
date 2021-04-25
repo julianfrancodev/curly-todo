@@ -1,18 +1,29 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import alertContext from '../../context/alert/AlertContext';
 import authContext from '../../context/auth/AuthContext';
 
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
 
     const alertsContext = useContext(alertContext);
     const authsContext = useContext(authContext);
 
     const { alert, showAlert } = alertsContext;
 
-    const {login} = authsContext;
+    const { login, message, auth } = authsContext;
+
+    useEffect(() => {
+        if (auth) {
+            props.history.push('/projects');
+        }
+
+        if (message) {
+            showAlert(message.msg, 'alerta-error');
+
+        }
+    }, [message, auth, props.history])
 
 
     // State para iniciar sesion
@@ -39,7 +50,7 @@ const Login = () => {
 
         // Validar los campos vacios
 
-        if(email.trim() === '' || password.trim() === ''){
+        if (email.trim() === '' || password.trim() === '') {
             showAlert("Todos los campos son obligatorios", 'alerta-error');
         }
 

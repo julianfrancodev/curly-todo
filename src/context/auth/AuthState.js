@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { GET_USER, LOGIN_ERROR, REGISTER_ERROR, REGISTER_SUCCESS } from '../../types';
+import { GET_USER, LOGIN_ERROR, LOGIN_SUCCESS, REGISTER_ERROR, REGISTER_SUCCESS } from '../../types';
 
 import clientAxios from "../../config/axios";
 import tokenAuth from '../../config/tokenAuth';
@@ -84,7 +84,13 @@ const AuthState = (props) => {
 
         const response = await clientAxios.post('/api/auth', data);
 
-        console.log(response);
+
+        dispatch({
+            type:LOGIN_SUCCESS,
+            payload: response.data
+        });
+
+        userAuth();
             
         } catch (e) {
             console.log(e.response);
