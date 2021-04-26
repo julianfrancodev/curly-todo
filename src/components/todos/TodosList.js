@@ -15,8 +15,6 @@ const TodosList = () => {
     const { todosproject } = todosContext;
     // Si no hay proyecto seleccinado 
 
-    console.log(todosproject);
-
     if (!project) return <h2>Selecciona un proyecto.</h2>;
 
     // Array destructuring para extraer el pryecto actual

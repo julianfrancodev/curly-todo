@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { GET_USER, LOGIN_ERROR, LOGIN_SUCCESS, REGISTER_ERROR, REGISTER_SUCCESS } from '../../types';
+import { GET_USER, LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, REGISTER_ERROR, REGISTER_SUCCESS } from '../../types';
 
 import clientAxios from "../../config/axios";
 import tokenAuth from '../../config/tokenAuth';
@@ -62,8 +62,6 @@ const AuthState = (props) => {
             try {
                 const response = await clientAxios.get('/api/auth');
 
-                // console.log(response);
-
                 dispatch({
                     type: GET_USER,
                     payload: response.data.user
@@ -107,6 +105,14 @@ const AuthState = (props) => {
         }
     }
 
+    // Cierra la sesion del usuario
+
+    const logout = () =>{
+        dispatch({
+            type: LOGOUT
+        })
+    }
+
     return (
         <authContext.Provider
             value={{
@@ -115,7 +121,9 @@ const AuthState = (props) => {
                 user: state.user,
                 message: state.message,
                 registerUser,
-                login
+                login,
+                userAuth, 
+                logout
             }}
         >
             {props.children}

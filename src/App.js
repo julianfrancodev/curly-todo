@@ -9,6 +9,15 @@ import ProjectState from "./context/projects/ProjectState";
 import TodoState from "./context/todos/TodoState";
 import AuthState from "./context/auth/AuthState";
 
+import tokenAuth from './config/tokenAuth';
+// Revisar si tenemos un token 
+
+const token = localStorage.getItem("tokeU");
+
+if(token){
+  tokenAuth(token);
+}
+
 function App() {
   return (
 
