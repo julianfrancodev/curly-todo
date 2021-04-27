@@ -9,6 +9,8 @@ import ProjectState from "./context/projects/ProjectState";
 import TodoState from "./context/todos/TodoState";
 import AuthState from "./context/auth/AuthState";
 
+import RoutePrivate from './components/routes/RoutePrivate';
+
 import tokenAuth from './config/tokenAuth';
 // Revisar si tenemos un token 
 
@@ -29,7 +31,7 @@ function App() {
               <Switch>
                 <Route exact path="/" component={Login} />
                 <Route exact path="/create-account" component={CreateAccount} />
-                <Route exact path="/projects" component={Projects} />
+                <RoutePrivate exact path="/projects" component={Projects} />
               </Switch>
             </Router>
           </AuthState>
