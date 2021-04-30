@@ -14,9 +14,9 @@ import RoutePrivate from './components/routes/RoutePrivate';
 import tokenAuth from './config/tokenAuth';
 // Revisar si tenemos un token 
 
-const token = localStorage.getItem("tokeU");
+const token = localStorage.getItem("tokenU");
 
-if(token){
+if (token) {
   tokenAuth(token);
 }
 

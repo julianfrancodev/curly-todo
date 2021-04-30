@@ -27,7 +27,7 @@ const Project = ({ project }) => {
                 className="btn btn-black"
                 onClick={() => selectProject(project)}
             >
-                {project.nameP}
+                {project.name}
             </button>
         </li>
     );

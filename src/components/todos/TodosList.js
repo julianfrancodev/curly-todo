@@ -25,7 +25,7 @@ const TodosList = () => {
     return (
         <Fragment>
             <h2>
-                Proyecto: {currentProject.nameP}
+                Proyecto: {currentProject.name}
             </h2>
 
             <ul className="listado-tareas">
@@ -42,7 +42,7 @@ const TodosList = () => {
             <button
                 type="button"
                 className="btn btn-eliminar"
-                onClick={() => removeProject(currentProject.id)}
+                onClick={() => removeProject(currentProject._id)}
             >
                 Eliminar Proyecto &times;
             </button>
