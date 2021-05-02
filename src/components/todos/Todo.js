@@ -43,7 +43,7 @@ const Todo = ({ todo }) => {
 
     return (
         <li className="tarea sombra">
-            <p>{todo.nameT}</p>
+            <p>{todo.name}</p>
             <div className="estado">
                 {todo.state
                     ? (<button

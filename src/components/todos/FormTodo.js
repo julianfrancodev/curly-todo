@@ -14,7 +14,7 @@ const FormTodo = () => {
 
 
     const [todo, setTodo] = useState({
-        nameT: ''
+        name: ''
     });
 
 
@@ -25,7 +25,7 @@ const FormTodo = () => {
             setTodo(todoselected)
         } else {
             setTodo({
-                nameT: ''
+                name: ''
             })
         }
     }, [todoselected])
@@ -47,7 +47,7 @@ const FormTodo = () => {
 
         // validar
 
-        if (todo.nameT.trim() === "") {
+        if (todo.name.trim() === "") {
             validateTodo();
             return;
         }
@@ -57,9 +57,8 @@ const FormTodo = () => {
 
         if (todoselected === null) {
             // Agregamos nueva tarea al state de tareas
-            todo.projectId = project[0].id;
-            todo.state = false;
-
+            todo.project = project[0]._id;
+            
             addTodo(todo);
         }else{
             // Actualizar la tarea existente
@@ -79,7 +78,7 @@ const FormTodo = () => {
         // reiniciar el formulario
 
         setTodo({
-            nameT: ''
+            name: ''
         })
     }
 
@@ -93,8 +92,8 @@ const FormTodo = () => {
                         type='text'
                         className='input-text'
                         placeholder='Nombre Tarea...'
-                        name='nameT'
-                        value={todo.nameT}
+                        name='name'
+                        value={todo.name}
                         onChange={handleChange}
                     />
                 </div>

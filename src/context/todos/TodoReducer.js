@@ -17,12 +17,12 @@ export default (state, action) => {
         case TODOS_PROJECT:
             return {
                 ...state,
-                todosproject: state.todos.filter(todo => todo.projectId === action.payload),
+                todosproject: state.todosproject.filter(todo => todo.projectId === action.payload),
             }
         case ADD_TODO:
             return {
                 ...state,
-                todos: [action.payload,...state.todos],
+                todosproject: [action.payload,...state.todosproject],
                 errortodo: false
             }
         case VALIDATE_TODO:
@@ -33,13 +33,13 @@ export default (state, action) => {
         case REMOVE_TODO: 
             return{
                 ...state,
-                todos: state.todos.filter(todo => todo.id !== action.payload)
+                todosproject: state.todosproject.filter(todo => todo.id !== action.payload)
             }
         case UPDATE_TODO: 
         case STATE_TODO: 
             return {
                 ...state,
-                todos: state.todos.map(todo => todo.id === action.payload.id ? action.payload : todo),
+                todosproject: state.todosproject.map(todo => todo.id === action.payload.id ? action.payload : todo),
                 
             }
         case CURRENT_TODO: 

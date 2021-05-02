@@ -1,9 +1,9 @@
 import React, { useReducer } from 'react';
 
-import uuid from 'uuid';
-
 import todoContext from './TodoContext';
 import todoReducer from './TodoReducer';
+
+import clientAxios from '../../config/axios';
 
 import {
     TODOS_PROJECT,
@@ -18,17 +18,8 @@ import {
 
 const TodoState = (props) => {
 
-
-
-
     const initialState = {
-        todos: [
-            { id: 1, nameT: "Elegir plataforma", state: true, projectId: 1 },
-            { id: 2, nameT: "Elegir Escenario", state: false, projectId: 2 },
-            { id: 3, nameT: "Elegir Metodo", state: true, projectId: 3 },
-            { id: 4, nameT: "Elegir Camino", state: false, projectId: 4 },
-        ],
-        todosproject: null,
+        todosproject: [],
         errortodo: false,
         todoselected: null
 
@@ -50,14 +41,25 @@ const TodoState = (props) => {
 
     // Agregar tarea
 
-    const addTodo = (todo) => {
+    const addTodo = async (todo) => {
+        console.log(todo);
+        
+        try {
 
-        todo.id = uuid.v4();
+            const response = await clientAxios.post('/api/todos', todo);
 
-        dispatch({
-            type: ADD_TODO,
-            payload: todo
-        })
+            console.log(response);
+
+            dispatch({
+                type: ADD_TODO,
+                payload: todo
+            })
+            
+        } catch (e) {
+            console.log(e.response);
+        }
+
+        
     }
 
     // Valida y muestra un error de ser necesario
@@ -116,7 +118,6 @@ const TodoState = (props) => {
     return (
         <todoContext.Provider
             value={{
-                todos: state.todos,
                 todosproject: state.todosproject,
                 errortodo: state.errortodo,
                 todoselected: state.todoselected,
