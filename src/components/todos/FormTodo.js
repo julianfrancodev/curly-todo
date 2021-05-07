@@ -58,7 +58,7 @@ const FormTodo = () => {
         if (todoselected === null) {
             // Agregamos nueva tarea al state de tareas
             todo.project = project[0]._id;
-            
+
             addTodo(todo);
         }else{
             // Actualizar la tarea existente
@@ -72,8 +72,7 @@ const FormTodo = () => {
         }
 
         // Obtener las tareas de un proyecto
-
-        getTodos(project[0].id);
+        getTodos(project[0]._id);
 
         // reiniciar el formulario
 

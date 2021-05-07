@@ -55,7 +55,6 @@ const AuthState = (props) => {
     const userAuth = async () => {
         const token = localStorage.getItem('tokenU');
 
-        console.log(token);
         if (token) {
             // Funciona para enviar token por headers
             tokenAuth(token);

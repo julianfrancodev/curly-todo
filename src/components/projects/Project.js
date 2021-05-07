@@ -17,7 +17,7 @@ const Project = ({ project }) => {
 
     const selectProject = (project) => {
         currentProject(project);
-        getTodos(project.id); // filtar tareas cuando se de click
+        getTodos(project._id); // filtar tareas cuando se de click
     }
 
     return (

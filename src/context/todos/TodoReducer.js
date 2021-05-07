@@ -17,7 +17,7 @@ export default (state, action) => {
         case TODOS_PROJECT:
             return {
                 ...state,
-                todosproject: state.todosproject.filter(todo => todo.projectId === action.payload),
+                todosproject: action.payload
             }
         case ADD_TODO:
             return {

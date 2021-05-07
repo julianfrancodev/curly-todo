@@ -32,11 +32,21 @@ const TodoState = (props) => {
 
     // Obtener las tareas de un proyecto
 
-    const getTodos = (projectId) => {
-        dispatch({
-            type: TODOS_PROJECT,
-            payload: projectId
-        })
+    const getTodos = async (project) => {
+
+        try {
+            const result  = await clientAxios.get('/api/todos', {params: {project}});
+            console.log(result)
+            dispatch({
+                type: TODOS_PROJECT,
+                payload: result.data.todos
+            })
+
+        } catch (e) {
+            console.log(e.response);
+        }
+
+       
     }
 
     // Agregar tarea
@@ -52,7 +62,7 @@ const TodoState = (props) => {
 
             dispatch({
                 type: ADD_TODO,
-                payload: todo
+                payload: response.data.todo
             })
             
         } catch (e) {
