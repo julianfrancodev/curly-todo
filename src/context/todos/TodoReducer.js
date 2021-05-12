@@ -4,7 +4,6 @@ import {
     ADD_TODO,
     VALIDATE_TODO,
     REMOVE_TODO,
-    STATE_TODO,
     CURRENT_TODO,
     UPDATE_TODO,
     CLEAN_TODO
@@ -33,13 +32,12 @@ export default (state, action) => {
         case REMOVE_TODO: 
             return{
                 ...state,
-                todosproject: state.todosproject.filter(todo => todo.id !== action.payload)
+                todosproject: state.todosproject.filter(todo => todo._id !== action.payload)
             }
         case UPDATE_TODO: 
-        case STATE_TODO: 
             return {
                 ...state,
-                todosproject: state.todosproject.map(todo => todo.id === action.payload.id ? action.payload : todo),
+                todosproject: state.todosproject.map(todo => todo._id === action.payload._id ? action.payload : todo),
                 
             }
         case CURRENT_TODO: 

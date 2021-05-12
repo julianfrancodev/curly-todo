@@ -10,7 +10,6 @@ import {
     ADD_TODO,
     VALIDATE_TODO,
     REMOVE_TODO,
-    STATE_TODO,
     CURRENT_TODO,
     UPDATE_TODO,
     CLEAN_TODO
@@ -35,7 +34,7 @@ const TodoState = (props) => {
     const getTodos = async (project) => {
 
         try {
-            const result  = await clientAxios.get('/api/todos', {params: {project}});
+            const result = await clientAxios.get('/api/todos', { params: { project } });
             console.log(result)
             dispatch({
                 type: TODOS_PROJECT,
@@ -46,14 +45,14 @@ const TodoState = (props) => {
             console.log(e.response);
         }
 
-       
+
     }
 
     // Agregar tarea
 
     const addTodo = async (todo) => {
         console.log(todo);
-        
+
         try {
 
             const response = await clientAxios.post('/api/todos', todo);
@@ -64,12 +63,12 @@ const TodoState = (props) => {
                 type: ADD_TODO,
                 payload: response.data.todo
             })
-            
+
         } catch (e) {
             console.log(e.response);
         }
 
-        
+
     }
 
     // Valida y muestra un error de ser necesario
@@ -81,25 +80,24 @@ const TodoState = (props) => {
     }
     // Eliminar tarea por id
 
-    const removeTodo = (id) => {
-        dispatch({
-            type: REMOVE_TODO,
-            payload: id
-        })
+    const removeTodo = async (id, project) => {
+        try {
+            await clientAxios.delete(`/api/todos/${id}`, { params: { project } });
+            dispatch({
+                type: REMOVE_TODO,
+                payload: id
+            })
+        } catch (error) {
+            console.log(error.response);
+        }
     }
 
-    // Cambia el estado de cada tarea
 
-    const updateStateTodo = (todo) => {
-        dispatch({
-            type: STATE_TODO,
-            payload: todo
-        });
-    }
+
 
     // Extraer una tarea para la edicion
 
-    const saveCurrentTodo = (todo) =>{
+    const saveCurrentTodo = (todo) => {
         dispatch({
             type: CURRENT_TODO,
             payload: todo
@@ -108,21 +106,36 @@ const TodoState = (props) => {
 
     // Editar una tarea
 
-    const updateTodo = todo =>{
-        dispatch({
-            type: UPDATE_TODO,
-            payload: todo
-        })
+    const updateTodo = async todo => {
+
+
+
+        try {
+            
+            const response = await clientAxios.put(`/api/todos/${todo._id}`, todo);
+
+            console.log(response);
+
+
+            dispatch({
+                type: UPDATE_TODO,
+                payload: response.data.todo
+            })
+        } catch (e) {
+            console.log(e.response);
+        }
+
+      
     }
 
     // Eliminar todoselected
 
-    const cleanTodo =()=>{
+    const cleanTodo = () => {
         dispatch({
             type: CLEAN_TODO
         })
     }
-   
+
 
 
     return (
@@ -135,7 +148,6 @@ const TodoState = (props) => {
                 addTodo,
                 validateTodo,
                 removeTodo,
-                updateStateTodo,
                 saveCurrentTodo,
                 updateTodo,
                 cleanTodo

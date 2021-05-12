@@ -9,7 +9,7 @@ const Todo = ({ todo }) => {
     const projectsContext = useContext(projectContext);
     const todosContext = useContext(todoContext);
 
-    const { removeTodo, getTodos, updateStateTodo, saveCurrentTodo } = todosContext;
+    const { removeTodo, getTodos, saveCurrentTodo, updateTodo } = todosContext;
     const { project } = projectsContext;
 
     // Extraer el proyecto con array destructuring
@@ -17,8 +17,8 @@ const Todo = ({ todo }) => {
     const [currentProject] = project;
 
     const deleteTodo = (id) => {
-        removeTodo(id);
-        getTodos(currentProject.id);
+        removeTodo(id, currentProject._id);
+        getTodos(currentProject._id);
     }
 
     // Funcion que modifica el estado de las tareas
@@ -30,7 +30,7 @@ const Todo = ({ todo }) => {
             todo.state = true;
         }
 
-        updateStateTodo(todo);
+        updateTodo(todo);
     }
 
 
@@ -73,7 +73,7 @@ const Todo = ({ todo }) => {
                 <button
                     type="button"
                     className="btn btn-secundario"
-                    onClick={() => deleteTodo(todo.id)}
+                    onClick={() => deleteTodo(todo._id)}
                 >
                     Eliminar
                 </button>
